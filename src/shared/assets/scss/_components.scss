@@ -1,0 +1,146 @@
+%page-padding {
+  padding: toRem(100) 0;
+
+  @include breakpoint-down(sm) {
+    padding: toRem(80) 0;
+  }
+}
+
+.two-column-section {
+  @extend %page-padding;
+
+  .content-wrapper {
+    .copy-content {
+      padding-right: toRem(60);
+
+      @include breakpoint-down(md) {
+        padding-right: toRem(15);
+        margin-bottom: toRem(40);
+      }
+
+      .meta-text {
+        letter-spacing: toRem(1);
+
+        @include breakpoint-down(lg) {
+          font-size: toRem(14);
+        }
+      }
+
+      .title-text {
+        @include breakpoint-down(lg) {
+          font-size: toRem(36);
+        }
+
+        @include breakpoint-down(sm) {
+          @include font-height(32, 42);
+        }
+      }
+
+      .description-text {
+        @include font-height(23, 34);
+        width: 90%;
+
+        @include breakpoint-down(lg) {
+          font-size: toRem(18);
+        }
+
+        @include breakpoint-down(md) {
+          width: 100% !important;
+        }
+
+        @include breakpoint-down(sm) {
+          font-size: toRem(18);
+        }
+      }
+    }
+
+    .image-section {
+      @include breakpoint-down(md) {
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+.item-listing-section {
+  @extend %page-padding;
+
+  .title-text {
+    margin-bottom: toRem(60);
+    width: 50%;
+
+    @include breakpoint-down(lg) {
+      @include font-height(38, 44);
+      width: 70%;
+    }
+
+    @include breakpoint-down(md) {
+      @include font-height(36, 38);
+      font-size: toRem(36) !important;
+      width: 95% !important;
+    }
+
+    @include breakpoint-down(sm) {
+      font-size: toRem(32) !important;
+      width: 100% !important;
+    }
+  }
+
+  .row {
+    row-gap: toRem(50);
+
+    @include breakpoint-down(md) {
+      row-gap: toRem(40);
+    }
+
+    @include breakpoint-down(sm) {
+      row-gap: toRem(30);
+    }
+
+    .col-12 {
+      @include breakpoint-down(md) {
+        margin-bottom: toRem(44);
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.feature-section-list {
+  @include flex-row-start-wrap;
+  align-items: flex-start;
+  width: 90%;
+
+  .feature-item {
+    @include flex-row-start-nowrap;
+    align-items: flex-start;
+    margin-bottom: toRem(16);
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .icon-wrapper {
+      margin-right: toRem(16);
+      position: relative;
+      top: toRem(7);
+    }
+
+    .text {
+      @include font-height(19.25, 30);
+
+      @include breakpoint-down(md) {
+        font-size: toRem(17.5);
+      }
+    }
+  }
+}
+
+.breadcrumb-anchor {
+  position: fixed;
+  transform: translateY(5px);
+  z-index: 20;
+}
