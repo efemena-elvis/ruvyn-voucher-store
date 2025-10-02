@@ -90,7 +90,7 @@ export default {
 
     paymentDescription() {
       return this.getCart
-        ?.map((item) => `${item.name} x${item.quantity}`)
+        ?.map((item) => `${item.name} x ${item.quantity}`)
         ?.join(", ");
     },
 
@@ -168,17 +168,20 @@ export default {
 
     async initiateZambiaPayment() {
       const requestPayload = {
-        currency: "ZMW",
-        country: "ZM",
-        narration: "payment for clothes",
-        method: "mobilemoney",
         amount: this.getOrderSummary.subtotal,
-        redirect_url: "https://redstonepgs.com/",
-        customer: {
-          email: "",
-          first_name: "",
-          last_name: "",
-        },
+        description: this.paymentDescription
+
+        // currency: "ZMW",
+        // country: "ZM",
+      
+        // method: "mobilemoney",
+
+        // redirect_url: "https://redstonepgs.com/",
+        // customer: {
+        //   email: "",
+        //   first_name: "",
+        //   last_name: "",
+        // },
       };
 
       try {
@@ -186,11 +189,19 @@ export default {
         const res = await this.initializeZambiaCheckout(requestPayload);
         this.handleClick("checkout", "Checkout", false);
 
-        console.log("Checkout", res);
+       if( res.status === 200 && res?.data?.payment_details.payment_link)
+       {  
+              localStorage.setItem(
+        "transaction_ref",
+        res.data.payment_details.transaction_ref
+      );
 
-        res.success === true && res?.data?.payment_link
-          ? this.createAndClickAnchor(res?.data?.payment_link, "_blank")
-          : this.pushToast(res?.message ?? "Order checkout failed", "warning");
+         this.createAndClickAnchor(
+              res?.data?.payment_details.payment_link,
+              "_blank"
+            )
+          }
+          else {this.pushToast(res?.message ?? "Order checkout failed", "warning");}
       } catch (err) {
         this.pushToast("Order checkout failed", "error");
         this.handleClick("checkout", "Checkout", false);
