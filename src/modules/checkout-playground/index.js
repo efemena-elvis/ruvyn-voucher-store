@@ -88,6 +88,19 @@ export default [
         },
       },
 
+         {
+      path: '/payment/callback',
+      name: 'payment-status',
+       props: route => ({
+    status: route.query.status,
+    tx_ref: route.query.tx_ref,
+    transaction_id: route.query.transaction_id,
+  }),
+      component: () => import(
+           /* webpackChunkName: "checkout-layout" */
+         '@/modules/checkout-playground/pages/order-status'),
+    },
+
       {
         name: "PlaygroundCategory",
         path: ":category",
